@@ -1,0 +1,93 @@
+<!--
+   client.html
+   
+   Descp:
+ 
+   Created on: 21-jul-2016
+   
+   Copyright 2016 Abel 'Akronix' Serrano Juste <akronix5@gmail.com>
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Client</title>
+  <meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <script src="jquery-3.1.0.min.js"></script>
+</head>
+
+<body>
+	<button name="all_posts_btn" onclick=all_posts()>All posts</button>
+	<button name="gadget_posts_btn">Gadget posts</button>
+  <li id="output_list">
+  </li>
+</body>
+
+<!--
+<script type="application/javascript">
+function receiveData ( data ) {
+  console.log(JSON.stringify(data));
+}
+</script>
+
+<script src="http://www.govoid.es/wp-json/wp/v2/posts/?_jsonp=receiveData?last_pages=5"></script>
+-->
+
+<!--
+<script>
+function all_posts() {
+  console.log("hola");
+  $.ajax({
+    type: "GET",
+    url: 'https://www.govoid.es/wp-json/wp/v2/posts?_jsonp=receiveData?',
+    dataType: 'jsonp',
+    success: function(response){
+        alert("Conseguido!");
+    }
+  });
+}
+</script>
+-->
+<script>
+var invocation = new XMLHttpRequest();
+var url = 'https://www.govoid.es/wp-json/wp/v2/posts';
+  
+function handler() {
+  console.log(JSON.stringify(invocation.response));
+}  
+
+  
+//function all_posts() {
+  //console.log("hola");
+  
+    //if(invocation) {    
+      //invocation.open('GET', url, true);
+      //invocation.onreadystatechange = handler;
+      //invocation.send(); 
+    //}
+//}
+
+function all_posts() {
+  if(!invocation) {
+    alert('Woops, there was an error making the request.');
+    return;
+  }
+  invocation.open('GET', url, true);
+  invocation.onreadystatechange = handler;
+
+  // Response handlers.
+  invocation.onreadystatechange = handler
+
+  invocation.onerror = function() {
+    alert('Woops, there was an error making the request.');
+  };
+
+  invocation.send();
+}
+
+</script>
+
+</html>
