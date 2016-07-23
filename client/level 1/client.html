@@ -54,29 +54,21 @@ function all_posts() {
 <script>
 var invocation = new XMLHttpRequest();
 var url = 'https://www.govoid.es/wp-json/wp/v2/posts?per_page=5';
-  
+
 function handler() {
   var resp = JSON.parse(invocation.response);
-  for post in resp:
-    console.log(post.title + '\n');
+  resp.forEach( 
+    function(element) { console.log(element["title"].rendered + '\n');}
+  );
 }  
 
-  
-//function all_posts() {
-  //console.log("hola");
-  
-    //if(invocation) {    
-      //invocation.open('GET', url, true);
-      //invocation.onreadystatechange = handler;
-      //invocation.send(); 
-    //}
-//}
-
 function all_posts() {
+  
   if(!invocation) {
-    alert('Woops, there was an error making the request.');
+    alert('Woops, there was an error creating the request.');
     return;
   }
+  
   invocation.open('GET', url, true);
   //~ invocation.setRequestHeader('Content-Type', 'application/json');
 
@@ -84,6 +76,7 @@ function all_posts() {
   invocation.onreadystatechange = handler
   invocation.onerror = function() {
     alert('Woops, there was an error making the request.');
+    return;
   };
 
   invocation.send();
