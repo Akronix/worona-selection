@@ -22,8 +22,8 @@
 <body>
 	<button id="all_posts_btn">All posts</button>
 	<button id="gadget_posts_btn">Gadget posts</button>
-  <li id="output_list">
-  </li>
+  <ul id="output_list">
+  </ul>
 </body>
 
 <!--
@@ -56,16 +56,22 @@ function all_posts() {
 // Adding event listener to DOM elements
 document.getElementById("all_posts_btn").addEventListener('click', function() { fetch_posts('?per_page=5')});
 document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')});
-  
 
 var invocation = new XMLHttpRequest();
 var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
 
 function handler() {
   var resp = JSON.parse(invocation.response);
-  resp.forEach( 
-    function(element) { console.log(element["title"].rendered + '\n');}
+  var output_cont = document.getElementById("output_list");
+  var string_out = ''
+  
+  resp.forEach(
+    function(element) {
+      string_out += '<li>' + (element["title"].rendered) + '</li>';
+      }
   );
+  
+  output_cont.innerHTML = string_out
 }  
 
 function fetch_posts() {
