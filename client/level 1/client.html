@@ -53,10 +53,14 @@ function all_posts() {
 -->
 <script>
 var invocation = new XMLHttpRequest();
-var url = 'https://www.govoid.es/wp-json/wp/v2/posts';
+var url = 'https://www.govoid.es/wp-json/wp/v2/posts?last_pages=5';
   
 function handler() {
-  console.log(JSON.stringify(invocation.response));
+  var resp = invocation.response;
+  console.log(resp[0].title);
+  
+  
+  //~ console.log(JSON.stringify(invocation.response));
 }  
 
   
@@ -76,7 +80,6 @@ function all_posts() {
     return;
   }
   invocation.open('GET', url, true);
-  invocation.onreadystatechange = handler;
 
   // Response handlers.
   invocation.onreadystatechange = handler
