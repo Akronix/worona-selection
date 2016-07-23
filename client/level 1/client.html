@@ -1,10 +1,10 @@
 <!--
    client.html
-   
+
    Descp:
- 
+
    Created on: 21-jul-2016
-   
+
    Copyright 2016 Abel 'Akronix' Serrano Juste <akronix5@gmail.com>
 -->
 
@@ -12,90 +12,69 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
-<head>
-	<title>Client</title>
-  <meta charset="utf-8">
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <script src="jquery-3.1.0.min.js"></script>
-</head>
+  <head>
+    <title>Client</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="jquery-3.1.0.min.js"></script>
+  </head>
 
-<body>
-	<button id="all_posts_btn">All posts</button>
-	<button id="gadget_posts_btn">Gadget posts</button>
-  <ul id="output_list">
-  </ul>
-</body>
+  <body>
+    <button id="all_posts_btn">All posts</button>
+    <button id="gadget_posts_btn">Gadget posts</button>
+    <ul id="output_list"></ul>
+  </body>
 
-<!--
-<script type="application/javascript">
-function receiveData ( data ) {
-  console.log(JSON.stringify(data));
-}
-</script>
+  <script>
 
-<script src="http://www.govoid.es/wp-json/wp/v2/posts/?_jsonp=receiveData?last_pages=5"></script>
--->
+    // Adding event listener to DOM elements
+    document.getElementById("all_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5')} );
+    document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')} );
 
-<!--
-<script>
-function all_posts() {
-  console.log("hola");
-  $.ajax({
-    type: "GET",
-    url: 'https://www.govoid.es/wp-json/wp/v2/posts?_jsonp=receiveData?',
-    dataType: 'jsonp',
-    success: function(response){
-        alert("Conseguido!");
-    }
-  });
-}
-</script>
--->
-<script>
-  
-// Adding event listener to DOM elements
-document.getElementById("all_posts_btn").addEventListener('click', function() { fetch_posts('?per_page=5')});
-document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')});
+    var invocation = new XMLHttpRequest();
+    var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
 
-var invocation = new XMLHttpRequest();
-var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
 
-function handler() {
-  var resp = JSON.parse(invocation.response);
-  var output_cont = document.getElementById("output_list");
-  var string_out = ''
-  
-  resp.forEach(
-    function(element) {
-      string_out += '<li>' + (element["title"].rendered) + '</li>';
+    // Optional: first argument allows to append API REST options to the endpoint URL 
+    function fetch_posts() {
+
+      if(!invocation) {
+        alert('Woops, there was an error creating the request.');
+        return;
       }
-  );
-  
-  output_cont.innerHTML = string_out
-}  
 
-function fetch_posts() {
-  
-  if(!invocation) {
-    alert('Woops, there was an error creating the request.');
-    return;
-  }
-  
-  var url = (arguments[0]? base_url + arguments[0] : base_url)
-  
-  invocation.open('GET', url, true);
-  //~ invocation.setRequestHeader('Content-Type', 'application/json');
+      var url = (arguments[0]? base_url + arguments[0] : base_url)
 
-  // Response handlers.
-  invocation.onload = handler
-  invocation.onerror = function() {
-    alert('Woops, there was an error making the request.');
-    return;
-  };
+      invocation.open('GET', url, true);
+      //~ invocation.setRequestHeader('Content-Type', 'application/json');
 
-  invocation.send();
-}
+      // Response handlers.
+      invocation.onload = handler
+      invocation.onerror = function() {
+        alert('Woops, there was an error making the request.');
+        return;
+      };
 
-</script>
+      invocation.send();
+    }
+
+
+    function handler() {
+      
+      var resp = JSON.parse(invocation.response);
+      var output_cont = document.getElementById("output_list");
+      var string_out = ''
+
+      resp.forEach(
+        function(element) {
+          string_out += '<li>' + (element["title"].rendered) + '</li>';
+          }
+      );
+
+      output_cont.innerHTML = string_out
+    }
+
+
+  </script>
 
 </html>
