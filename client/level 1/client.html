@@ -20,8 +20,8 @@
 </head>
 
 <body>
-	<button name="all_posts_btn" onclick=all_posts()>All posts</button>
-	<button name="gadget_posts_btn">Gadget posts</button>
+	<button id="all_posts_btn">All posts</button>
+	<button id="gadget_posts_btn">Gadget posts</button>
   <li id="output_list">
   </li>
 </body>
@@ -52,8 +52,14 @@ function all_posts() {
 </script>
 -->
 <script>
+  
+// Adding event listener to DOM elements
+document.getElementById("all_posts_btn").addEventListener('click', function() { fetch_posts('?per_page=5')});
+document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')});
+  
+
 var invocation = new XMLHttpRequest();
-var url = 'https://www.govoid.es/wp-json/wp/v2/posts?per_page=5';
+var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
 
 function handler() {
   var resp = JSON.parse(invocation.response);
@@ -62,12 +68,14 @@ function handler() {
   );
 }  
 
-function all_posts() {
+function fetch_posts() {
   
   if(!invocation) {
     alert('Woops, there was an error creating the request.');
     return;
   }
+  
+  var url = (arguments[0]? base_url + arguments[0] : base_url)
   
   invocation.open('GET', url, true);
   //~ invocation.setRequestHeader('Content-Type', 'application/json');
