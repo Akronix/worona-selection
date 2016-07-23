@@ -1,0 +1,102 @@
+/*
+* { margin: 0; padding: 0; }
+*/
+
+/* Headers and text */
+body {
+  font-family: Poppins, sans-serif;
+  color: white;
+  background-color: #6FBADA;
+}
+
+header {
+  font-weight: bold;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+h1 {
+  cursor: pointer;
+  font-weight: bolder;
+  display: inline-block;
+}
+
+
+nav {
+  font-size: 14px;
+  display: inline-block;
+  position: absolute;
+  right: 4%;
+  top: 45px;
+}
+
+main {
+  clear : both;
+}
+
+nav a {
+  text-decoration:none;
+  color: white;
+  opacity: 0.5;
+  margin-right: 10px;
+  text-align: left;
+}
+
+nav a : hover, nav a : focus {
+  color: yellow;
+  opacity: 1;
+}
+
+.faded {
+  opacity: 0.5;
+}
+
+h2, h3 {
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+/* Images */
+
+#app_store_img{
+  margin-right: 2%;
+}
+
+#android_img {
+  margin-right: 3%;
+}
+
+#banner_div {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+/* Responsive style.
+ * CSS depends on the device screen size */
+
+/* navigation menu */ 
+ @media screen and (max-width: 700px) {
+  nav #menu_nav_bar{
+    display:none;
+  }
+  
+  nav #hamburguer {
+    color: white;
+    font-size: 40px;
+    display: block;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  nav #hamburguer {
+    display: none;
+  }
+}
