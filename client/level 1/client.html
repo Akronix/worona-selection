@@ -73,7 +73,7 @@ function all_posts() {
   //~ invocation.setRequestHeader('Content-Type', 'application/json');
 
   // Response handlers.
-  invocation.onreadystatechange = handler
+  invocation.onload = handler
   invocation.onerror = function() {
     alert('Woops, there was an error making the request.');
     return;
