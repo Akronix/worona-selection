@@ -27,12 +27,29 @@
 
   <script>
 
+
     // Adding event listener to DOM elements
     document.getElementById("all_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5')} );
     document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')} );
 
     var invocation = new XMLHttpRequest();
     var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
+
+
+    function handler() {
+      
+      var resp = JSON.parse(invocation.response);
+      var output_cont = document.getElementById("output_list");
+      var string_out = ''
+
+      resp.forEach(
+        function(element) {
+          string_out += '<li>' + (element["title"].rendered) + '</li>';
+          }
+      );
+
+      output_cont.innerHTML = string_out
+    }
 
 
     // Optional: first argument allows to append API REST options to the endpoint URL 
@@ -56,22 +73,6 @@
       };
 
       invocation.send();
-    }
-
-
-    function handler() {
-      
-      var resp = JSON.parse(invocation.response);
-      var output_cont = document.getElementById("output_list");
-      var string_out = ''
-
-      resp.forEach(
-        function(element) {
-          string_out += '<li>' + (element["title"].rendered) + '</li>';
-          }
-      );
-
-      output_cont.innerHTML = string_out
     }
 
 
