@@ -35,7 +35,7 @@
     $("#all_posts_btn").click ( function(){ fetch_posts('?per_page=5')} );
     $("#gadget_posts_btn").click ( function(){ fetch_posts('?per_page=5&categories=2375')} );
 
-    var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
+    var base_url = 'https://www.govoid.es/wp-json/posts';
     
     $( document ).ajaxStart(function() {
       console.log('Loading posts...');
@@ -70,7 +70,8 @@
       var request = $.ajax({
         type: 'GET',
         url: url,
-        dataType: "json",
+        dataType: "jsonp",
+        jsonp: "_jsonp"
       })
       request.done( handler );
       request.fail(function( jqXHR, textStatus ) {
