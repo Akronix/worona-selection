@@ -23,6 +23,9 @@
     <button id="all_posts_btn">All posts</button>
     <button id="gadget_posts_btn">Gadget posts</button>
     <ul id="output_list"></ul>
+    <div id="loading" style="display:none; position: absolute; top: 65px; left:5%; z-index:1;">
+      <img src="ajax-loader.gif" />
+    </div>
   </body>
 
   <script>
@@ -35,11 +38,11 @@
     var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
     
     $( document ).ajaxStart(function() {
-      console.log('Loading');
-      //~ $( "#loading" ).show();
+      console.log('Loading posts...');
+      $( "#loading" ).show();
       }).ajaxStop(function() {
         console.log('Done.');
-      //~ $( "#loading" ).hide();
+      $( "#loading" ).hide();
     });
     
 
