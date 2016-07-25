@@ -1,0 +1,28 @@
+{
+  "name": "worona's_server",
+  "version": "1.0.0",
+  "description": "nodejs worona's selection server",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worona/selection-test-01.git"
+  },
+  "keywords": [
+    "worona",
+    "selection",
+    "server"
+  ],
+  "author": "Abel 'Akronix' Serrano Juste <akronix5@gmail.com> (https://github.com/Akronix/)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/worona/selection-test-01/issues"
+  },
+  "homepage": "https://github.com/worona/selection-test-01#readme"
+}
