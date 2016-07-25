@@ -9,14 +9,15 @@
  */
 
 var express = require('express'); 
+var logic = require('./logic.js')
 var app = express();
 
 app.get('/sum/:a/:b', function (req, res) {
-  res.send(new String(parseInt(req.params.a)+parseInt(req.params.b)));
+  res.send(new String(logic.sum(parseInt(req.params.a),parseInt(req.params.b))));
 });
 
 app.get('/mul/:a/:b', function (req, res) {
-  res.send(new String(parseInt(req.params.a)*parseInt(req.params.b)));
+  res.send(new String(logic.mul(parseInt(req.params.a),parseInt(req.params.b))));
 });
 
 app.listen(4000, function () {
