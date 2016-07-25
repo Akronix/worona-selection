@@ -29,16 +29,23 @@
 
 
     // Adding event listener to DOM elements
-    document.getElementById("all_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5')} );
-    document.getElementById("gadget_posts_btn").addEventListener('click', function(){ fetch_posts('?per_page=5&categories=2375')} );
+    $("#all_posts_btn").click ( function(){ fetch_posts('?per_page=5')} );
+    $("#gadget_posts_btn").click ( function(){ fetch_posts('?per_page=5&categories=2375')} );
 
-    var invocation = new XMLHttpRequest();
     var base_url = 'https://www.govoid.es/wp-json/wp/v2/posts';
+    
+    $( document ).ajaxStart(function() {
+      console.log('Loading');
+      //~ $( "#loading" ).show();
+      }).ajaxStop(function() {
+        console.log('Done.');
+      //~ $( "#loading" ).hide();
+    });
+    
 
-
-    function handler() {
+    function handler( data ) {
       
-      var resp = JSON.parse(invocation.response);
+      var resp = data.responseJSON
       var output_cont = document.getElementById("output_list");
       var string_out = ''
 
@@ -52,27 +59,20 @@
     }
 
 
-    // Optional: first argument allows to append API REST options to the endpoint URL 
+    // Optional first argument allows to append API REST options to the endpoint URL 
     function fetch_posts() {
 
-      if(!invocation) {
-        alert('Woops, there was an error creating the request.');
-        return;
-      }
-
       var url = (arguments[0]? base_url + arguments[0] : base_url)
-
-      invocation.open('GET', url, true);
-      //~ invocation.setRequestHeader('Content-Type', 'application/json');
-
-      // Response handlers.
-      invocation.onload = handler
-      invocation.onerror = function() {
-        alert('Woops, there was an error making the request.');
-        return;
-      };
-
-      invocation.send();
+      
+      var request = $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: "json",
+      })
+      request.done( handler );
+      request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+      });
     }
 
 
